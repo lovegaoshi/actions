@@ -38,4 +38,5 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
+          name: "awesomerelease-$COMMIT_TAG"
           generate_release_notes: true
