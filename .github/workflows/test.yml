@@ -14,29 +14,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Get Tag
-        id: get_tag
-        run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
-
-      - name: Display Tag
-        run: echo "${{ steps.get_tag.outputs.tag }}"
-
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
-      - name: Get Recent Commit Tag
-        id: get_commit_tag
+      - name: Get Last Commit Date
+        id: commit_date
         run: |
-          COMMIT_TAG=$(git describe --tags --abbrev=0)
-          echo "COMMIT_TAG=${COMMIT_TAG}" >> $GITHUB_ENV
+          LAST_COMMIT_DATE=$(git log -1 --format=%ct)
+          echo "LAST_COMMIT_DATE=${LAST_COMMIT_DATE}" >> $GITHUB_ENV
 
-      - name: Display Commit Tag
+      - name: Calculate Time Difference
+        id: time_diff
         run: |
-          echo "Commit Tag: $COMMIT_TAG"
+          CURRENT_DATE=$(date +%s)
+          SECONDS_IN_WEEK=$((60*60*24*7))
+          TIME_DIFF=$((CURRENT_DATE - LAST_COMMIT_DATE))
+          echo "TIME_DIFF=${TIME_DIFF}" >> $GITHUB_ENV
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          name: "awesomerelease-${{env.COMMIT_TAG}}"
-          generate_release_notes: true
+      - name: Check Last Commit
+        run: |
+          if [[ $TIME_DIFF -gt $SECONDS_IN_WEEK ]]; then
+            echo "Last commit is older than a week."
+            exit 1
+          else
+            echo "Last commit is within the past week."
+          fi
