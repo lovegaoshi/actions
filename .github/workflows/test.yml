@@ -28,7 +28,7 @@ jobs:
 
       - name: Check Last Commit
         run: |
-          if [[ $TIME_DIFF -gt $SECONDS_IN_WEEK ]]; then
+          if [[ $TIME_DIFF -gt $((60*60*24*7)) ]]; then
             echo "Last commit is older than a week."
             echo "::set-output name=is_old_commit::true"
           else
