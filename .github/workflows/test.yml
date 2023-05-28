@@ -1,8 +1,8 @@
 name: auto-release
 on:
   push:
-    tags:
-      - "v[0-9]+.[0-9]+.[0-9]"
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
           SECONDS_IN_WEEK=$((60*60*24*7))
           TIME_DIFF=$((CURRENT_DATE - LAST_COMMIT_DATE))
           echo "TIME_DIFF=${TIME_DIFF}" >> $GITHUB_ENV
+          echo ${{env.TIME_DIFF}}
 
       - name: Check Last Commit
         run: |
