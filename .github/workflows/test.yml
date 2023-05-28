@@ -30,16 +30,16 @@ jobs:
         run: |
           if [[ $TIME_DIFF -gt $((60*60*24*7)) ]]; then
             echo "Last commit is older than a week."
-            echo "::set-output name=is_old_commit::true"
+            echo "is_old_commit=true" >> $GITHUB_OUTPUT
           else
             echo "Last commit is within the past week."
-            echo "::set-output name=is_old_commit::false"
+            echo "is_old_commit=false" >> $GITHUB_OUTPUT
           fi
 
   conditionalJob:
     runs-on: ubuntu-latest
     needs: commitCheckJob
-    if: ${{ needs.commitCheckJob.outputs.is_old_commit == 'false' }}
+    if: ${{ needs.commitCheckJob.outputs.is_old_commit == false }}
 
     steps:
       - name: Run Conditional Job
