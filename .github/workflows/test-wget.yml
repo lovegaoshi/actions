@@ -31,6 +31,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'wget'
-          files: *.log
+          name: "wget"
+          files: ./*.log
           target_commitish: ${{ env.GIT_BRANCH }}
