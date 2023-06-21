@@ -1,9 +1,14 @@
 name: wget and echo
 on:
+  push:
+    branches:
+      - "main"
   workflow_dispatch:
 jobs:
   commitCheckJob:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
