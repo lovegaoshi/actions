@@ -34,3 +34,4 @@ jobs:
           name: "wget"
           files: ./*.log
           target_commitish: ${{ env.GIT_BRANCH }}
+          tag_name: "wget"
