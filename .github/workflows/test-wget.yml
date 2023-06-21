@@ -22,8 +22,8 @@ jobs:
       - name: echo
         run: |
           sudo chmod 777 test.log
-          echo "${{ secrets.TEST1 }}" > test.log
-          echo "${{ secrets.TEST1 }}" > test.log
+          echo "${{ secrets.TEST1 }}" >> test.log
+          echo "${{ secrets.TEST1 }}" >> test.log
 
       - name: cat results
         id: vars
