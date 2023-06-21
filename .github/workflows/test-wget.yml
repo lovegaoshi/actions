@@ -16,7 +16,7 @@ jobs:
 
       - name: echo
         run: |
-          chmod 777 test.log
+          sudo chmod 777 test.log
           echo "${{ secrets.TEST1 }}" > test.log
           echo "${{ secrets.TEST1 }}" > test.log
 
