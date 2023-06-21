@@ -1,0 +1,24 @@
+name: wget and echo
+on:
+  workflow_dispatch:
+jobs:
+  commitCheckJob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: WGet my file
+        uses: wei/wget@v1
+        with:
+          args: -O test.log https://noxplay.us.to/noxbackup/log
+
+      - name: echo
+        run: |
+          echo "${{ secrets.TEST1 }}" > test.log
+          echo "${{ secrets.TEST1 }}" > test.log
+
+      - name: cat results
+        run: |
+          cat test.log
