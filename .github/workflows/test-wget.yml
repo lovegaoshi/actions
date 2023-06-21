@@ -28,7 +28,7 @@ jobs:
       - name: cat results
         id: vars
         run: |
-          echo "content=$(cat test.log)" >> $GITHUB_OUTPUT
+          echo "content=$(cat test.log)" > $GITHUB_OUTPUT
 
       - name: Test output
         run: echo ${{ steps.vars.outputs.version }}
