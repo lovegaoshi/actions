@@ -21,5 +21,9 @@ jobs:
           echo "${{ secrets.TEST1 }}" > test.log
 
       - name: cat results
+        id: vars
         run: |
-          cat test.log
+          echo "content=$(cat test.log)" >> $GITHUB_OUTPUT
+
+      - name: Test output
+        run: echo ${{ steps.vars.outputs.version }}
