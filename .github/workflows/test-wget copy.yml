@@ -1,0 +1,26 @@
+name: wget and echo
+on:
+  push:
+    branches:
+      - "main"
+  workflow_dispatch:
+jobs:
+  commitCheckJob:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: python version_bump.py
+        run: |
+          python version_bump.py
+
+      - name: commit
+        run: |
+          git commit -m "build: release version bump" -a
+
+      - name: Push changes to master
+        uses: ad-m/github-push-action@master

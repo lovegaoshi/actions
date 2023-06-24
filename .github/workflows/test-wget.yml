@@ -1,8 +1,5 @@
 name: wget and echo
-on:
-  push:
-    branches:
-      - "main"
+on:    
   workflow_dispatch:
 jobs:
   commitCheckJob:
